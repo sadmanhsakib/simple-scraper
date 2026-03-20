@@ -1,10 +1,13 @@
-import asyncio
+import asyncio, os
+from dotenv import load_dotenv
 from playwright.async_api import async_playwright
 from markdownify import markdownify as md
 
+load_dotenv()
+
 
 def main():
-    site_url = "https://paste.fitgirl-repacks.site/?fad3baf0fad437cf#HVjnbfAB9Hk8TXWpUndxnjuseaytwd46RLX8SzZfv1Ku"
+    site_url = os.getenv("SITE_URL")
 
     html_content = asyncio.run(fetch_page(site_url))
     export_as_markdown(html_content)
