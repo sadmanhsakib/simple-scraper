@@ -42,13 +42,12 @@ class LinkCollection(BaseModel):
 
 def main() -> None:
     # Read the raw markdown content that we want to parse
-    with open("scraped_data.md", "r") as file:
+    with open("data.md", "r") as file:
         markdown_data = file.read()
 
     # Have the LLM process the markdown data to extract the links
     results = generate_output(markdown_data)
 
-    print(results)
     # Save the extracted links into a text file, separated by commas
     with open("links.txt", "w") as file:
         for link in results.links:

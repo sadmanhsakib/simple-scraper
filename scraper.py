@@ -53,9 +53,9 @@ def export_as_markdown(html_content: str) -> None:
     )
 
     # saving the data for later usage
-    with open("scraped_data.md", "a", encoding="utf-8") as file:
+    with open("data.md", "a", encoding="utf-8") as file:
         file.write(markdown_content)
-    print("✅ Data saved to scraped_data.md")
+    print("✅ Data saved to data.md")
 
 
 main()

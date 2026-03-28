@@ -24,7 +24,7 @@ class LinkCollection(BaseModel):
 
 
 def main() -> None:
-    with open("scraped_data.md", "r") as file:
+    with open("data.md", "r") as file:
         markdown_data = file.read()
 
     results = generate_output(markdown_data)

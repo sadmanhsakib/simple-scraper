@@ -9,9 +9,10 @@ __pycache__/
 .venv
 test.py
 *.html
-scraped_data.md
+data.md
 .env
-*.txt
+urls.txt
+download_urls.txt
 
 # Distribution / packaging
 .Python
