@@ -9,13 +9,8 @@ load_dotenv()
 def main() -> None:
     site_url = os.getenv("SITE_URL")
 
-    # reading the urls from the file
-    with open("urls.txt", "r") as file:
-        urls = file.read().split(",")
-
-    for url in urls:
-        html_content = asyncio.run(fetch_page(url))
-        export_as_markdown(html_content)
+    html_content = asyncio.run(fetch_page(site_url))
+    export_as_markdown(html_content)
 
 
 async def fetch_page(site_url: str) -> str:
@@ -53,7 +48,7 @@ def export_as_markdown(html_content: str) -> None:
     )
 
     # saving the data for later usage
-    with open("data.md", "a", encoding="utf-8") as file:
+    with open("data.md", "w", encoding="utf-8") as file:
         file.write(markdown_content)
     print("✅ Data saved to data.md")
 

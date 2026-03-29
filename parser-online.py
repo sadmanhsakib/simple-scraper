@@ -1,4 +1,4 @@
-import os
+import os, time
 import instructor
 from groq import Groq
 from pydantic import BaseModel, HttpUrl
@@ -24,7 +24,7 @@ SYSTEM_PROMPT = """
 You are a data extraction assistant.
 Extract lead information from the given content.
 Respond ONLY with a valid JSON object. No explanation, no markdown fences.
-Extract only the download links.
+Extract ONLY the download links.
 """
 
 
@@ -48,15 +48,17 @@ def main() -> None:
     # Have the LLM process the markdown data to extract the links
     results = generate_output(markdown_data)
 
-    # Save the extracted links into a text file, separated by commas
-    with open("links.txt", "w") as file:
+    # Save the extracted urls into a text file, separated by commas
+    with open("urls.txt", "w") as file:
+        urls_str = ""
+
         for link in results.links:
             # Convert HttpUrl to string
-            urls_str = str(link.url) + ","
+            urls_str += str(link.url) + ","
         # Remove the last comma before writing
         file.write(urls_str[:-1])
 
-    print("Links extracted successfully to links.txt")
+    print("✅Urls extracted successfully to urls.txt")
 
 
 def generate_output(prompt: str) -> LinkCollection:
@@ -83,5 +85,8 @@ def generate_output(prompt: str) -> LinkCollection:
     return response
 
 
-# Execute the script
-main()
+if __name__ == "__main__":
+    start_time = time.time()
+    main()
+    end_time = time.time()
+    print(f"Total execution time: {end_time - start_time:.2f} seconds")
