@@ -6,37 +6,37 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
+- [Features](#-features)
+- [Architecture](#-architecture)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Configuration](#%EF%B8%8F-configuration)
+- [Usage](#-usage)
   - [Step 1 — Scrape a Webpage](#step-1--scrape-a-webpage)
   - [Step 2 — Extract Links (Cloud)](#step-2--extract-links-cloud)
   - [Step 2 (Alt) — Extract Links (Local/Offline)](#step-2-alt--extract-links-localoffline)
   - [Step 3 — Verify Extracted URLs](#step-3--verify-extracted-urls)
-- [Project Structure](#project-structure)
-- [How It Works](#how-it-works)
-- [Technologies Used](#technologies-used)
-- [License](#license)
+- [Project Structure](#-project-structure)
+- [How It Works](#-how-it-works)
+- [Technologies Used](#-technologies-used)
+- [License](#-license)
 
 ---
 
-## Features
+## ✨ Features
 
-- **Headless Browser Scraping** — Uses [Playwright](https://playwright.dev/python/) to render JavaScript-heavy pages before extraction, ensuring no content is missed.
-- **HTML → Markdown Conversion** — Strips away non-essential elements (scripts, styles, navigation, etc.) and converts the remaining HTML to clean Markdown for optimal LLM consumption.
-- **LLM-Powered Extraction** — Employs an LLM to semantically identify and extract download links from unstructured content — far more resilient than traditional regex or DOM-based approaches.
-- **Structured Output with Pydantic** — All extracted data is validated against strict Pydantic schemas, ensuring type-safe, well-formed results.
-- **Cloud & Offline Support** — Run extraction against a cloud-hosted LLM via [Groq](https://groq.com/) or use a locally hosted model through [Ollama](https://ollama.com/) — no internet dependency required for the offline variant.
-- **Token Usage Reporting** — Displays prompt, completion, and total token counts after each extraction run for cost and performance monitoring.
+- 🌐 **Headless Browser Scraping** — Uses [Playwright](https://playwright.dev/python/) to render JavaScript-heavy pages before extraction, ensuring no content is missed.
+- 📝 **HTML → Markdown Conversion** — Strips away non-essential elements (scripts, styles, navigation, etc.) and converts the remaining HTML to clean Markdown for optimal LLM consumption.
+- 🤖 **LLM-Powered Extraction** — Employs an LLM to semantically identify and extract download links from unstructured content — far more resilient than traditional regex or DOM-based approaches.
+- 🔒 **Structured Output with Pydantic** — All extracted data is validated against strict Pydantic schemas, ensuring type-safe, well-formed results.
+- ☁️ **Cloud & Offline Support** — Run extraction against a cloud-hosted LLM via [Groq](https://groq.com/) or use a locally hosted model through [Ollama](https://ollama.com/) — no internet dependency required for the offline variant.
+- 📊 **Token Usage Reporting** — Displays prompt, completion, and total token counts after each extraction run for cost and performance monitoring.
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```
 ┌─────────────┐      ┌──────────────────┐      ┌──────────────────┐      ┌────────────┐
@@ -51,7 +51,7 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
 
 ---
 
-## Prerequisites
+## 📋 Prerequisites
 
 - **Python** 3.10 or higher
 - **Playwright browsers** installed (Chromium is used by default)
@@ -59,12 +59,12 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
 
 ---
 
-## Installation
+## 🚀 Installation
 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/<your-username>/llm-data-extractor.git
+   git clone https://github.com/sadmanhsakib/llm-data-extractor.git
    cd llm-data-extractor
    ```
 
@@ -94,7 +94,7 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 Create a `.env` file in the project root by copying the provided template:
 
@@ -114,7 +114,7 @@ Then populate the variables:
 
 ---
 
-## Usage
+## 📖 Usage
 
 The pipeline is executed in sequential steps:
 
@@ -152,10 +152,10 @@ Reads the extracted URLs from `urls.txt`, fetches individual pages, and opens th
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-llm-link-extractor/
+llm-data-extractor/
 ├── scraper.py           # Stage 1: Headless browser scraping & HTML-to-Markdown conversion
 ├── parser-online.py     # Stage 2: Cloud-based LLM link extraction (Groq)
 ├── parser-offline.py    # Stage 2: Local LLM link extraction (Ollama)
@@ -170,7 +170,7 @@ llm-link-extractor/
 
 ---
 
-## How It Works
+## 🔍 How It Works
 
 1. **Scraping (`scraper.py`):**  
    Playwright launches a headless Chromium instance and fully renders the target page (including JavaScript-generated content). The raw HTML is then processed by [markdownify](https://github.com/matthewwithanm/python-markdownify), which strips non-essential elements (`<script>`, `<style>`, `<nav>`, `<footer>`, etc.) and converts the remainder into clean Markdown.
@@ -183,7 +183,7 @@ llm-link-extractor/
 
 ---
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 | Technology                                                        | Purpose                                |
 |------------------------------------------------------------------|----------------------------------------|
@@ -197,6 +197,6 @@ llm-link-extractor/
 
 ---
 
-## License
+## 📄 License
 
 This project is provided as-is for educational and personal use.
