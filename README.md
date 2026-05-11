@@ -4,8 +4,6 @@ A two-stage web scraping and intelligent link extraction pipeline that leverages
 
 Rather than relying on brittle CSS selectors or regex patterns, this tool converts raw HTML into clean Markdown and delegates the semantic extraction to an LLM — producing reliable, schema-validated results via [Pydantic](https://docs.pydantic.dev/) and the [Instructor](https://python.useinstructor.com/) library.
 
----
-
 ## 📑 Table of Contents
 
 - [Features](#-features)
@@ -17,13 +15,11 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
   - [Step 1 — Scrape a Webpage](#step-1--scrape-a-webpage)
   - [Step 2 — Extract Links (Cloud)](#step-2--extract-links-cloud)
   - [Step 2 (Alt) — Extract Links (Local/Offline)](#step-2-alt--extract-links-localoffline)
-  - [Step 3 — Verify Extracted URLs](#step-3--verify-extracted-urls)
 - [Project Structure](#-project-structure)
 - [How It Works](#-how-it-works)
 - [Technologies Used](#-technologies-used)
 - [License](#-license)
 
----
 
 ## ✨ Features
 
@@ -34,7 +30,6 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
 - ☁️ **Cloud & Offline Support** — Run extraction against a cloud-hosted LLM via [Groq](https://groq.com/) or use a locally hosted model through [Ollama](https://ollama.com/) — no internet dependency required for the offline variant.
 - 📊 **Token Usage Reporting** — Displays prompt, completion, and total token counts after each extraction run for cost and performance monitoring.
 
----
 
 ## 🏗️ Architecture
 
@@ -49,15 +44,11 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
                    (intermediate)                                     (verification)
 ```
 
----
-
 ## 📋 Prerequisites
 
 - **Python** 3.10 or higher
 - **Playwright browsers** installed (Chromium is used by default)
 - **Groq API key** (for cloud-based extraction) _or_ **Ollama** running locally (for offline extraction)
-
----
 
 ## 🚀 Installation
 
@@ -92,8 +83,6 @@ Rather than relying on brittle CSS selectors or regex patterns, this tool conver
    playwright install chromium
    ```
 
----
-
 ## ⚙️ Configuration
 
 Create a `.env` file in the project root by copying the provided template:
@@ -111,8 +100,6 @@ Then populate the variables:
 | `API_KEY`   | Your Groq API key                                   | `parser-online.py`  |
 
 > **Note:** The offline parser (`parser-offline.py`) connects to a local Ollama instance at `http://localhost:11434` and does not require any environment variables.
-
----
 
 ## 📖 Usage
 
@@ -142,16 +129,6 @@ python parser-offline.py
 
 Functionally identical to the cloud variant, but routes all inference through a locally running Ollama instance (using the `deepseek-r1:32b` model by default). Ideal for environments with restricted internet access or when working with sensitive data.
 
-### Step 3 — Verify Extracted URLs
-
-```bash
-python test.py
-```
-
-Reads the extracted URLs from `urls.txt`, fetches individual pages, and opens the resolved download link in your default browser for manual verification.
-
----
-
 ## 📁 Project Structure
 
 ```
@@ -168,8 +145,6 @@ llm-data-extractor/
 └── README.md            # This file
 ```
 
----
-
 ## 🔍 How It Works
 
 1. **Scraping (`scraper.py`):**  
@@ -177,11 +152,6 @@ llm-data-extractor/
 
 2. **Parsing (`parser-online.py` / `parser-offline.py`):**  
    The Markdown content is sent to an LLM as a user message, accompanied by a system prompt instructing the model to extract only download links. The [Instructor](https://python.useinstructor.com/) library wraps the LLM client to enforce structured JSON output conforming to a Pydantic `LinkCollection` schema — ensuring every extracted URL is validated as a proper `HttpUrl`.
-
-3. **Verification (`test.py`):**  
-   A lightweight utility that reads the comma-separated URLs from `urls.txt`, fetches each page, and opens the resolved download link in the default browser for manual inspection.
-
----
 
 ## 🛠️ Technologies Used
 
@@ -194,8 +164,6 @@ llm-data-extractor/
 | [Groq](https://groq.com/)                                       | Cloud LLM inference API                |
 | [Ollama](https://ollama.com/)                                    | Local LLM inference server             |
 | [tiktoken](https://github.com/openai/tiktoken)                  | Token count estimation                 |
-
----
 
 ## 📄 License
 

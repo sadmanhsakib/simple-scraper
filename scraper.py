@@ -15,14 +15,14 @@ def main() -> None:
 
 async def fetch_page(site_url: str) -> str:
     async with async_playwright() as playwright:
-        # launching the browser
+        # Use headless mode for faster execution and no GUI
         browser = await playwright.chromium.launch(headless=True)
         page = await browser.new_page()
 
         print("Navigating to the site.....")
+        # Wait for network idle to ensure all dynamic content has loaded
         await page.goto(site_url, wait_until="networkidle")
 
-        # extracting RAW the html content
         html_content = await page.content()
         await browser.close()
 
@@ -30,7 +30,7 @@ async def fetch_page(site_url: str) -> str:
 
 
 def export_as_markdown(html_content: str) -> None:
-    # converting into markdown format for easier extraction
+    # Convert to markdown for better LLM text extraction performance
     markdown_content = md(
         html_content,
         heading_style="ATX",
@@ -47,10 +47,13 @@ def export_as_markdown(html_content: str) -> None:
         ],
     )
 
-    # saving the data for later usage
+    # Save markdown for downstream processing by the parser
     with open("data.md", "w", encoding="utf-8") as file:
         file.write(markdown_content)
     print("✅ Data saved to data.md")
 
 
-main()
+if __name__ == "__main__":
+    start_time = time.time()
+    main()
+    print(f"✅ Analysis pipeline completed in {time.time() - start_time:.2f} seconds")
