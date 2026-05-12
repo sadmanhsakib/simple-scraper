@@ -8,9 +8,8 @@ __pycache__/
 
 .venv
 test.py
-data.md
+data/
 .env
-urls.txt
 
 # Distribution / packaging
 .Python
