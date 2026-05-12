@@ -34,21 +34,24 @@ def main():
     with open("data.md", "r") as file:
         data = file.read()
 
-    print(f"Estimated Tokens: {count_tokens(data)}")
+    print(f"Estimated Tokens for the message: {count_tokens(SYSTEM_PROMPT + data)}")
 
-    client = initialize_client(is_local=False)
-    results = generate_output(client=client, prompt=data, model_name=REMOTE_MODEL_NAME)
+    client, model_name = initialize_client(is_local=True)
+    results = generate_output(client=client, prompt=data, model_name=model_name)
     export_output(results)
 
 
-def initialize_client(is_local: bool):
+def initialize_client(is_local: bool) -> tuple[instructor.core.client.Instructor, str]:
     if is_local:
         openai_client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
         client = instructor.from_openai(openai_client, mode=instructor.Mode.JSON)
+        
+        model_name = LOCAL_MODEL_NAME
     else:
         client = instructor.from_groq(Groq(api_key=api_key), mode=instructor.Mode.JSON)
+        model_name = REMOTE_MODEL_NAME
 
-    return client
+    return client, model_name
 
 
 def generate_output(
@@ -69,7 +72,7 @@ def generate_output(
         temperature=0.0,  # Deterministic output for consistent extraction
         response_model=LinkCollection,
         max_tokens=8192,
-        max_retries=1,
+        max_retries=0,
     )
 
     print("Prompt tokens:", completion.usage.prompt_tokens)
@@ -85,7 +88,7 @@ def export_output(results: LinkCollection):
         for link in results.links:
             file.writelines(str(link.url) + "\n")
 
-    print("✅Urls extracted successfully to urls.txt")
+    print("✅ Urls extracted successfully to urls.txt")
 
 
 def count_tokens(text: str) -> int:
@@ -97,4 +100,4 @@ def count_tokens(text: str) -> int:
 if __name__ == "__main__":
     start_time = time.time()
     main()
-    print(f"✅ Analysis pipeline completed in {time.time() - start_time:.2f} seconds")
+    print(f"✅ Run Time is {time.time() - start_time:.2f} seconds")

@@ -1,4 +1,4 @@
-import asyncio, os
+import asyncio, os, time
 from dotenv import load_dotenv
 from playwright.async_api import async_playwright
 from markdownify import markdownify as md
@@ -56,4 +56,4 @@ def export_as_markdown(html_content: str) -> None:
 if __name__ == "__main__":
     start_time = time.time()
     main()
-    print(f"✅ Analysis pipeline completed in {time.time() - start_time:.2f} seconds")
+    print(f"✅ Run Time is {time.time() - start_time:.2f} seconds")
